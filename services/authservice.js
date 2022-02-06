@@ -30,4 +30,4 @@ var authentication = {
     },
 };
 
-module.exports = authService;
+module.exports = authentication;
