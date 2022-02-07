@@ -34,3 +34,38 @@ exports.userSignUp = (req, res, next) => {
     })
 }
 
+//login
+exports.userLogIn = (req, res, next) => {
+    models.users.findOne({
+        where: {
+            Username: req.body.Username
+        }
+    }).then((userFound) => {
+        if(!userFound){
+            res.json({
+                message: "We didn't find a user with that Username, Please try again."
+            })
+        }else{
+            let passwordMatch = authentication.comparePassword(
+                req.body.Password,
+                userFound.Password
+            )
+            if(passwordMatch){
+               let token = authentication.giveToken(userFound);
+               res.cookie('jwt', token);
+               res.status(200).json({
+                   message: "Login successful",
+                   user: userFound,
+                   token: token
+               });
+               
+            }else{
+                res.json({
+                    message: "Wrong Password",
+                    
+                })
+            }
+        }
+    })
+}
+

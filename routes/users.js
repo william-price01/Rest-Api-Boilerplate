@@ -7,4 +7,5 @@ var usersController = require('../controllers/userController');
 
 router.post('/signup', usersController.userSignUp);
 
+router.post('/login', usersController.userLogIn);
 module.exports = router;
