@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 var mysql = require("mysql2");
-const authentication = require("../services/auth.service");
-const authMiddleware = require('../Middlewares/auth.middleware');
+const authService = require("../services/auth");
+const authMiddleware = require('../Middlewares/auth');
 
 
 // signup
@@ -17,7 +17,7 @@ exports.userSignUp = (req, res, next) => {
         FirstName: req.body.FirstName,
         LastName: req.body.LastName,
         Email: req.body.Email,
-        Password: authentication.hashPassword(req.body.Password),
+        Password: authService.hashPassword(req.body.Password),
       },
     })
     .spread(function (result, created) {
@@ -49,12 +49,12 @@ exports.userLogIn = (req, res, next) => {
             "We didn't find a user with that Username, Please try again.",
         });
       } else {
-        let passwordMatch = authentication.comparePassword(
+        let passwordMatch = authService.comparePasswords(
           req.body.Password,
           userFound.Password
         );
         if (passwordMatch) {
-          let token = authentication.giveToken(userFound);
+          let token = authService.signUser(userFound);
           res.cookie("jwt", token);
           res.status(200).json({
             message: "Login successful",

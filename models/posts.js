@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   posts.init({
-    PostId: DataTypes.INTEGER,
+    PostId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
     Title: DataTypes.STRING,
     Body: DataTypes.STRING,
     Synopsis: DataTypes.STRING,
