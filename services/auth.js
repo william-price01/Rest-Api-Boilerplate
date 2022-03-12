@@ -9,7 +9,7 @@ var authService = {
         UserName: user.Username,
         userId: user.UserId,
       },
-      "secretkey",
+      "GL9OjrBo3h3w5BH6T9)8{Zf00*#Yta|Xw;('K6M8PFn_U>N?!VTRzTLj@r5~V#M",
       {
         expiresIn: "1h",
       }
@@ -18,7 +18,7 @@ var authService = {
   },
   verifyUser: function (token) {  //<--- receive JWT token as parameter
     try {
-      let decoded = jwt.verify(token, 'secretkey'); //<--- Decrypt token using same key used to encrypt
+      let decoded = jwt.verify(token, "GL9OjrBo3h3w5BH6T9)8{Zf00*#Yta|Xw;('K6M8PFn_U>N?!VTRzTLj@r5~V#M"); //<--- Decrypt token using same key used to encrypt
       return models.users.findByPk(decoded.userId); //<--- Return result of database query as promise
     } catch (err) {
       console.log(err);
