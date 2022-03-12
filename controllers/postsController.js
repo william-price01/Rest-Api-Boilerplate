@@ -22,11 +22,11 @@ exports.post_createPost = (req, res, next) => {
                 post: result
               })
             }else{
-              console.log(error)
+              console.log(error);
             }
           })
           
   }else{
-    console.log('will was here');
+    console.log('Please log in');
   }
 };

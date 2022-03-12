@@ -40,7 +40,7 @@ exports.userLogIn = (req, res, next) => {
     .findOne({
       where: {
         Username: req.body.Username,
-      },
+      }
     })
     .then((userFound) => {
       if (!userFound) {
@@ -58,8 +58,6 @@ exports.userLogIn = (req, res, next) => {
           res.cookie("jwt", token);
           res.status(200).json({
             message: "Login successful",
-            user: userFound,
-            token: token,
           });
         } else {
           res.json({
